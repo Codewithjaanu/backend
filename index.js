@@ -5,10 +5,16 @@ const cors = require("cors");
 
 const app = express();
 const PORT = 3005;
-
 // Middleware to parse JSON requests
 app.use(express.json());
-app.use(cors());
+const allowedOrigins = ['https://frontend-fw72.onrender.com']; // Replace with your Netlify domain
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: 'GET,POST,PUT,DELETE', // Allow methods as needed
+  credentials: true, // If your API requires cookies or authorization headers
+}));
+
 app.use(require('./routes/UserRoutes'));
 app.use(require('./routes/NewCustomer'));
 app.use(require('./routes/NewReceipts'));
